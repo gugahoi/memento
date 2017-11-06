@@ -35,5 +35,5 @@ type RegistrySpec struct {
 
 // RegistryStatus ...
 type RegistryStatus struct {
-	ARN bool `json:"arn"`
+	ARN string `json:"arn"`
 }

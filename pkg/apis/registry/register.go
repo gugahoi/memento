@@ -22,15 +22,17 @@ func Resource(resource string) schema.GroupResource {
 }
 
 var (
+	// SchemeBuilder ...
 	SchemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
-	AddToScheme   = SchemeBuilder.AddToScheme
+	// AddToScheme ...
+	AddToScheme = SchemeBuilder.AddToScheme
 )
 
 // Adds the list of known types to api.Scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
-		&Alert{},
-		&AlertList{},
+		&Registry{},
+		&RegistryList{},
 	)
 	return nil
 }

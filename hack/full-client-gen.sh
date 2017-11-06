@@ -9,7 +9,7 @@ HEADER_FILE="${GOPATH}/src/${REPO}/hack/boilerplate.go.txt"
 
 pushd ${GOPATH}/src/k8s.io/code-generator
 
-echo "Generating Groups"
+echo "--- Generating Groups"
 ./generate-groups.sh \
     all \
     ${REPO}/pkg/client \
@@ -17,7 +17,7 @@ echo "Generating Groups"
     "registry:v1alpha1" \
     --go-header-file ${GOPATH}/src/${REPO}/hack/boilerplate.go.txt
 
-echo "Generating  Internal Groups"
+echo "--- Generating Internal Groups"
 ./generate-internal-groups.sh \
     all \
     ${REPO}/pkg/client \
