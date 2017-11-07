@@ -15,16 +15,6 @@ type Registry struct {
 	Status RegistryStatus
 }
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
-// RegistryList ...
-type RegistryList struct {
-	metav1.TypeMeta
-	metav1.ObjectMeta
-
-	Items []Registry
-}
-
 // RegistrySpec ...
 type RegistrySpec struct {
 	// Message string
@@ -33,4 +23,14 @@ type RegistrySpec struct {
 // RegistryStatus ...
 type RegistryStatus struct {
 	ARN string `json:"arn"`
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// RegistryList ...
+type RegistryList struct {
+	metav1.TypeMeta
+	metav1.ObjectMeta
+
+	Items []Registry
 }
