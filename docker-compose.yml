@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+  glide: 
+    image: myobplatform/go-glide:1.8
+    working_dir: /go/src/github.com/gugahoi/memento
+    volumes:
+    - .:/go/src/github.com/gugahoi/memento
+    entrypoint: glide
