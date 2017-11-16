@@ -6,8 +6,6 @@ import:
 - package: k8s.io/apimachinery
   subpackages:
   - pkg/api/errors
-  - pkg/apimachinery/announced
-  - pkg/apimachinery/registered
   - pkg/apis/meta/v1
   - pkg/conversion
   - pkg/labels
@@ -19,11 +17,13 @@ import:
   - pkg/util/wait
   - pkg/watch
 - package: k8s.io/client-go
-  version: ^5.0.1
+  version: ~4.0.0
   subpackages:
   - discovery
   - discovery/fake
   - kubernetes
+  - kubernetes/scheme
+  - pkg/api/v1
   - rest
   - testing
   - tools/cache

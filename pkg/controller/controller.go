@@ -46,6 +46,14 @@ func New(
 		queue:  workqueue.NewNamedRateLimitingQueue(workqueue.DefaultControllerRateLimiter(), "MementoRegistry"),
 	}
 
+	informer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc: c.enqueue,
+		UpdateFunc: func(old, new interface{}) {
+
+		},
+		DeleteFunc: c.enqueue,
+	})
+
 	log.Info("setting up event handlers")
 
 	return c, nil
@@ -94,10 +102,9 @@ func (c *Controller) processNextWorkItem() bool {
 
 	//  Sync is to push changes for a postgresdb resource
 	// err := c.pgmgr.Sync(key.(string))
-
 	// if err == nil {
 	// processed successfully, lets forget item in queue and return success
-	log.Info("Processing item %s", key)
+	log.Infof("processing item %s", key)
 	c.queue.Forget(key)
 	return true
 	// }
