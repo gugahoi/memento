@@ -11,8 +11,8 @@ package fake
 
 import (
 	clientset "github.com/gugahoi/memento/pkg/client/clientset/versioned"
-	mementov1alpha1 "github.com/gugahoi/memento/pkg/client/clientset/versioned/typed/memento/v1alpha1"
-	fakemementov1alpha1 "github.com/gugahoi/memento/pkg/client/clientset/versioned/typed/memento/v1alpha1/fake"
+	mementov1alpha1 "github.com/gugahoi/memento/pkg/client/clientset/versioned/typed/ecr/v1alpha1"
+	fakemementov1alpha1 "github.com/gugahoi/memento/pkg/client/clientset/versioned/typed/ecr/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

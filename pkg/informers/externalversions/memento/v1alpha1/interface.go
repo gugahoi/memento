@@ -18,8 +18,8 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
-	// Registries returns a RegistryInformer.
-	Registries() RegistryInformer
+	// ECRs returns a ECRInformer.
+	ECRs() ECRInformer
 }
 
 type version struct {
@@ -31,7 +31,7 @@ func New(f internalinterfaces.SharedInformerFactory) Interface {
 	return &version{f}
 }
 
-// Registries returns a RegistryInformer.
-func (v *version) Registries() RegistryInformer {
-	return &registryInformer{factory: v.SharedInformerFactory}
+// ECRs returns a ECRInformer.
+func (v *version) ECRs() ECRInformer {
+	return &eCRInformer{factory: v.SharedInformerFactory}
 }

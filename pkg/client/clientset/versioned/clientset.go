@@ -11,7 +11,7 @@ package versioned
 
 import (
 	glog "github.com/golang/glog"
-	mementov1alpha1 "github.com/gugahoi/memento/pkg/client/clientset/versioned/typed/memento/v1alpha1"
+	mementov1alpha1 "github.com/gugahoi/memento/pkg/client/clientset/versioned/typed/ecr/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"

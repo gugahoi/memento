@@ -10,7 +10,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "github.com/gugahoi/memento/pkg/apis/registry/v1alpha1"
+	v1alpha1 "github.com/gugahoi/memento/pkg/apis/ecr/v1alpha1"
 	"github.com/gugahoi/memento/pkg/client/scheme"
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	rest "k8s.io/client-go/rest"
@@ -18,7 +18,7 @@ import (
 
 type MementoV1alpha1Interface interface {
 	RESTClient() rest.Interface
-	RegistriesGetter
+	ECRsGetter
 }
 
 // MementoV1alpha1Client is used to interact with features provided by the memento.gugahoi.com group.
@@ -26,8 +26,8 @@ type MementoV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *MementoV1alpha1Client) Registries(namespace string) RegistryInterface {
-	return newRegistries(c, namespace)
+func (c *MementoV1alpha1Client) ECRs(namespace string) ECRInterface {
+	return newECRs(c, namespace)
 }
 
 // NewForConfig creates a new MementoV1alpha1Client for the given config.

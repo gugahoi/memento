@@ -10,7 +10,7 @@ limitations under the License.
 package fake
 
 import (
-	registryinternalversion "github.com/gugahoi/memento/pkg/apis/registry"
+	mementointernalversion "github.com/gugahoi/memento/pkg/apis/ecr"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -41,6 +41,6 @@ func init() {
 // After this, RawExtensions in Kubernetes types will serialize kube-aggregator types
 // correctly.
 func AddToScheme(scheme *runtime.Scheme) {
-	registryinternalversion.AddToScheme(scheme)
+	mementointernalversion.AddToScheme(scheme)
 
 }

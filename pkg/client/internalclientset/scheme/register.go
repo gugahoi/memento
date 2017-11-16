@@ -10,7 +10,7 @@ limitations under the License.
 package scheme
 
 import (
-	registry "github.com/gugahoi/memento/pkg/apis/registry/install"
+	memento "github.com/gugahoi/memento/pkg/apis/ecr/install"
 	announced "k8s.io/apimachinery/pkg/apimachinery/announced"
 	registered "k8s.io/apimachinery/pkg/apimachinery/registered"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -34,6 +34,6 @@ func init() {
 
 // Install registers the API group and adds types to a scheme
 func Install(groupFactoryRegistry announced.APIGroupFactoryRegistry, registry *registered.APIRegistrationManager, scheme *runtime.Scheme) {
-	registry.Install(groupFactoryRegistry, registry, scheme)
+	memento.Install(groupFactoryRegistry, registry, scheme)
 
 }

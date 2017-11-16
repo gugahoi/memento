@@ -9,4 +9,4 @@ limitations under the License.
 */
 package v1alpha1
 
-type RegistryExpansion interface{}
+type ECRExpansion interface{}

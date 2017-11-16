@@ -14,7 +14,7 @@ package externalversions
 
 import (
 	"fmt"
-	v1alpha1 "github.com/gugahoi/memento/pkg/apis/registry/v1alpha1"
+	v1alpha1 "github.com/gugahoi/memento/pkg/apis/ecr/v1alpha1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -46,8 +46,8 @@ func (f *genericInformer) Lister() cache.GenericLister {
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
 	// Group=Memento, Version=V1alpha1
-	case v1alpha1.SchemeGroupVersion.WithResource("registries"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Memento().V1alpha1().Registries().Informer()}, nil
+	case v1alpha1.SchemeGroupVersion.WithResource("ecrs"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Memento().V1alpha1().ECRs().Informer()}, nil
 
 	}
 

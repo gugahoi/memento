@@ -19,8 +19,8 @@ type FakeMementoV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeMementoV1alpha1) Registries(namespace string) v1alpha1.RegistryInterface {
-	return &FakeRegistries{c, namespace}
+func (c *FakeMementoV1alpha1) ECRs(namespace string) v1alpha1.ECRInterface {
+	return &FakeECRs{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

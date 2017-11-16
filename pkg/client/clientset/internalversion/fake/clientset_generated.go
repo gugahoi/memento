@@ -11,8 +11,8 @@ package fake
 
 import (
 	clientset "github.com/gugahoi/memento/pkg/client/clientset/internalversion"
-	registryinternalversion "github.com/gugahoi/memento/pkg/client/clientset/internalversion/typed/registry/internalversion"
-	fakeregistryinternalversion "github.com/gugahoi/memento/pkg/client/clientset/internalversion/typed/registry/internalversion/fake"
+	mementointernalversion "github.com/gugahoi/memento/pkg/client/clientset/internalversion/typed/ecr/internalversion"
+	fakemementointernalversion "github.com/gugahoi/memento/pkg/client/clientset/internalversion/typed/ecr/internalversion/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -53,7 +53,7 @@ func (c *Clientset) Discovery() discovery.DiscoveryInterface {
 
 var _ clientset.Interface = &Clientset{}
 
-// Registry retrieves the RegistryClient
-func (c *Clientset) Registry() registryinternalversion.RegistryInterface {
-	return &fakeregistryinternalversion.FakeRegistry{Fake: &c.Fake}
+// Memento retrieves the MementoClient
+func (c *Clientset) Memento() mementointernalversion.MementoInterface {
+	return &fakemementointernalversion.FakeMemento{Fake: &c.Fake}
 }

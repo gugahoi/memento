@@ -12,10 +12,10 @@ limitations under the License.
 
 package v1alpha1
 
-// RegistryListerExpansion allows custom methods to be added to
-// RegistryLister.
-type RegistryListerExpansion interface{}
+// ECRListerExpansion allows custom methods to be added to
+// ECRLister.
+type ECRListerExpansion interface{}
 
-// RegistryNamespaceListerExpansion allows custom methods to be added to
-// RegistryNamespaceLister.
-type RegistryNamespaceListerExpansion interface{}
+// ECRNamespaceListerExpansion allows custom methods to be added to
+// ECRNamespaceLister.
+type ECRNamespaceListerExpansion interface{}

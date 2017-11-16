@@ -11,7 +11,7 @@ package internalclientset
 
 import (
 	glog "github.com/golang/glog"
-	registryinternalversion "github.com/gugahoi/memento/pkg/client/internalclientset/typed/registry/internalversion"
+	mementointernalversion "github.com/gugahoi/memento/pkg/client/internalclientset/typed/memento/internalversion"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -19,19 +19,19 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	Registry() registryinternalversion.RegistryInterface
+	Memento() mementointernalversion.MementoInterface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
 // version included in a Clientset.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	registry *registryinternalversion.RegistryClient
+	memento *mementointernalversion.MementoClient
 }
 
-// Registry retrieves the RegistryClient
-func (c *Clientset) Registry() registryinternalversion.RegistryInterface {
-	return c.registry
+// Memento retrieves the MementoClient
+func (c *Clientset) Memento() mementointernalversion.MementoInterface {
+	return c.memento
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -50,7 +50,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	}
 	var cs Clientset
 	var err error
-	cs.registry, err = registryinternalversion.NewForConfig(&configShallowCopy)
+	cs.memento, err = mementointernalversion.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 // panics if there is an error in the config.
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
-	cs.registry = registryinternalversion.NewForConfigOrDie(c)
+	cs.memento = mementointernalversion.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -76,7 +76,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.registry = registryinternalversion.New(c)
+	cs.memento = mementointernalversion.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs
