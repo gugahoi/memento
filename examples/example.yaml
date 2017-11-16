@@ -1,0 +1,6 @@
+apiVersion: memento.gugahoi.com/v1alpha1
+kind: Registry
+metadata:
+  name: test-registry
+spec:
+  blash: jhasd

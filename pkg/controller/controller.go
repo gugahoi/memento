@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+	"reflect"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -30,8 +31,12 @@ type Controller struct {
 func New(
 	client *kubernetes.Clientset,
 	registryClient mementoClient.Interface,
-	registryInformer mementoInformerFactory.SharedInformerFactory,
 ) (*Controller, error) {
+
+	// dbInformerFactory acts like a cache for db resources like above
+	registryInformer := mementoInformerFactory.NewSharedInformerFactory(registryClient, 10*time.Minute)
+	// start go routines with our informers
+	go registryInformer.Start(nil)
 
 	informer := registryInformer.Memento().V1alpha1().Registries()
 	lister := informer.Lister()
@@ -46,15 +51,16 @@ func New(
 		queue:  workqueue.NewNamedRateLimitingQueue(workqueue.DefaultControllerRateLimiter(), "MementoRegistry"),
 	}
 
+	log.Info("setting up event handlers")
 	informer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc: c.enqueue,
 		UpdateFunc: func(old, new interface{}) {
-
+			if !reflect.DeepEqual(old, new) {
+				c.enqueue(new)
+			}
 		},
 		DeleteFunc: c.enqueue,
 	})
-
-	log.Info("setting up event handlers")
 
 	return c, nil
 }
@@ -101,8 +107,8 @@ func (c *Controller) processNextWorkItem() bool {
 	defer c.queue.Done(key)
 
 	//  Sync is to push changes for a postgresdb resource
-	// err := c.pgmgr.Sync(key.(string))
-	// if err == nil {
+	err := c.pgmgr.Sync(key.(string))
+	if err == nil {
 	// processed successfully, lets forget item in queue and return success
 	log.Infof("processing item %s", key)
 	c.queue.Forget(key)
@@ -110,12 +116,12 @@ func (c *Controller) processNextWorkItem() bool {
 	// }
 
 	// There was an error processing the item, log and requeue
-	// runtime.HandleError(err)
+	runtime.HandleError(err)
 
 	// Add item back in with a rate limited backoff
-	// c.queue.AddRateLimited(key)
+	c.queue.AddRateLimited(key)
 
-	// return true
+	return true
 }
 
 func (c *Controller) enqueue(obj interface{}) {

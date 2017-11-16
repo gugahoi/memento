@@ -4,10 +4,8 @@ import (
 	"flag"
 	"os"
 	"strings"
-	"time"
 
 	mementoClient "github.com/gugahoi/memento/pkg/client/clientset/versioned"
-	mementoInformerFactory "github.com/gugahoi/memento/pkg/client/informers/externalversions"
 	"github.com/gugahoi/memento/pkg/controller"
 	log "github.com/sirupsen/logrus"
 
@@ -63,17 +61,11 @@ func main() {
 		log.Fatalf("error creating db client: %v", err)
 	}
 
-	// dbInformerFactory acts like a cache for db resources like above
-	mmInformerFactory := mementoInformerFactory.NewSharedInformerFactory(mmClient, 10*time.Minute)
-
 	// this controller will deal with RDS dbs
-	c, err := controller.New(client, mmClient, mmInformerFactory)
+	c, err := controller.New(client, mmClient)
 	if err != nil {
 		log.Fatalf("error creating db controller: %v", err)
 	}
-
-	// start go routines with our informers
-	go mmInformerFactory.Start(nil)
 
 	if err = c.Run(2, nil); err != nil {
 		log.Fatalf("Error running controller: %v", err)
